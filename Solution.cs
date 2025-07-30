@@ -78,30 +78,29 @@ namespace BypassContour
                 bool dirSegment = VectorMultiply(contour.Segments[i], contour.Segments[j]) > 0 ? true : false;
 
 
-
-                //if (dirSegment != contour.Segments[i].Direction)
-                //{
-                //    contour.Segments[i].SwapDeriction();
-                //    (contour.Segments[i].Pt1, contour.Segments[i].Pt2) = (contour.Segments[i].Pt2, contour.Segments[i].Pt1);
-                //}
-                //else if (dirSegment != dir && contour.Segments[i].Direction != dir)
-                //{
-                //    contour.Segments[i].SwapDeriction();
-                //}
-
-                if (dirSegment != dir)
+                if (dir != dirSegment)
                 {
-                    if (contour.Segments[i].Direction != dir)
-                    {
-                        contour.Segments[i].SwapDeriction();
-                        (contour.Segments[i].Pt1, contour.Segments[i].Pt2) = (contour.Segments[i].Pt2, contour.Segments[i].Pt1);
-                    }
+                    (contour.Segments[i].Pt1, contour.Segments[i].Pt2) = (contour.Segments[i].Pt2, contour.Segments[i].Pt1);
                 }
-                else if (dirSegment != contour.Segments[i].Direction)
+                if (dir != contour.Segments[i].Direction)
                 {
                     contour.Segments[i].SwapDeriction();
-                    //(contour.Segments[i].Pt1, contour.Segments[i].Pt2) = (contour.Segments[i].Pt2, contour.Segments[i].Pt1);
                 }
+               
+
+                //if (dirSegment != dir)
+                //{
+                //    if (contour.Segments[i].Direction != dir)
+                //    {
+                //        contour.Segments[i].SwapDeriction();
+                //        (contour.Segments[i].Pt1, contour.Segments[i].Pt2) = (contour.Segments[i].Pt2, contour.Segments[i].Pt1);
+                //    }
+                //}
+                //else if (dirSegment != contour.Segments[i].Direction)
+                //{
+                //    contour.Segments[i].SwapDeriction();
+                //    //(contour.Segments[i].Pt1, contour.Segments[i].Pt2) = (contour.Segments[i].Pt2, contour.Segments[i].Pt1);
+                //}
 
                 //if (dirSegment != contour.Segments[j].Direction)
                 //{
@@ -123,6 +122,23 @@ namespace BypassContour
             }
         }
 
+
+        private static int FindCommonPoint(Segment first, Segment second)
+        {
+            Point firstPt1 = first.Pt1;
+            Point secondPt1 = second.Pt1;
+            Point firstPt2 = first.Pt2;
+            Point secondPt2 = second.Pt2;
+
+            if (secondPt1 == firstPt2)
+            {
+                return VectorMultiply(first, second);
+            }
+            else if (firstPt1 == firstPt2)
+            {
+                return VectorMultiply(first, second);
+            }
+        }
         /// <summary>
         /// Вычисляет векторное произведение. Работает в системе координат компьютера (Ох - слева направо, Оу - сверху вниз)
         /// </summary>
