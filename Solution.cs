@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace BypassContour
@@ -47,7 +48,24 @@ namespace BypassContour
 
             //VectorMultySolution(contour, dir);
 
+            for (int i = 0 ; i < contour.Segments.Count ; i++)
+            {
+                int j = i == contour.Segments.Count - 1 ? 0 : i + 1;
+                Point firstVector = new Point(contour.Segments[i].Pt2.X - contour.Segments[i].Pt1.X, contour.Segments[i].Pt2.Y - contour.Segments[i].Pt1.Y);
+                Point secondVector = new Point(contour.Segments[j].Pt2.X - contour.Segments[j].Pt1.X, contour.Segments[j].Pt2.Y - contour.Segments[j].Pt1.Y);
+                double lenFirstVec = Math.Sqrt(Math.Pow(firstVector.X, 2) + Math.Pow(firstVector.Y, 2));
+                double lenSecondVec = Math.Sqrt(Math.Pow(secondVector.X, 2) + Math.Pow(secondVector.Y, 2));
+                double scalarMulty = firstVector.X*secondVector.X+firstVector.Y*secondVector.Y;
 
+                double cosAngle = scalarMulty / (lenFirstVec*lenSecondVec);
+                Console.WriteLine(Math.Acos(cosAngle));
+
+                /*  M1 := Sqrt(Sqr(P2.X - P1.X) + Sqr(P2.Y - P1.Y));
+  M2 := Sqrt(Sqr(P3.X - P1.X) + Sqr(P3.Y - P1.Y));
+  SM := (P2.X - P1.X) * (P3.X - P1.X) + (P2.Y - P1.Y) * (P3.Y - P1.Y);
+  CosUgol := SM / (M1 * M2);
+  GetUgol := Round(ArcCos(CosUgol) * 180);*/
+            }
 
         }
 
@@ -55,7 +73,7 @@ namespace BypassContour
 
         private static void AngleSolution(Contour contour, bool dir)
         {
-
+            
         }
 
 
