@@ -18,6 +18,10 @@
             {
                 return pt1;
             }
+            set
+            {
+                pt1 = value;
+            }
         }
 
         public Point Pt2
@@ -25,6 +29,10 @@
             get
             {
                 return pt2;
+            }
+            set
+            {
+                pt2 = value;
             }
         }
 

@@ -13,19 +13,24 @@ namespace BypassContour
 
             //}
 
-            for (double i = 0 ; i <= 360 ; i += 2)
-            {
-                Console.WriteLine(i + "| " + Math.Cos(i / 180 * Math.PI) + "    " + Math.Sin(i / 180 * Math.PI));
+            //for (double i = 0 ; i <= 360 ; i += 2)
+            //{
+            //    Console.WriteLine(i + "| " + Math.Cos(i / 180 * Math.PI) + "    " + Math.Sin(i / 180 * Math.PI));
 
-            }
+            //}
 
             // false - по часовой
             // true - против часовой
 
-            Node tree = Generator.Example();
-            IDrawer drawer = new DrawerConsole();
+            Node tree = Generator.Example2();
+            IDrawer drawerDo = new DrawerBitmap(tree, "di_DO");
+            drawerDo.Draw(tree);
+           
+            
+            
+            IDrawer drawerPosle = new DrawerBitmap(tree, "di_Posle");
             Solution.GetSolution(tree);
-            drawer.Draw(tree);   
+            drawerPosle.Draw(tree);   
         }
     }
 

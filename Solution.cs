@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Xml.Serialization;
 
 namespace BypassContour
@@ -40,14 +41,14 @@ namespace BypassContour
         }
         private static void SetRightDirection(Contour contour, bool dir)
         {
-            //foreach (Segment segment in contour.Segments)
-            //{
-            //    if (segment.Direction != dir)
-            //        segment.SwapDeriction();
-            //}
+            VectorMultySolution(contour, dir);
+            //AngleSolution( contour,  dir)
+        }
 
-            //VectorMultySolution(contour, dir);
 
+
+        private static void AngleSolution(Contour contour, bool dir)
+        {
             for (int i = 0 ; i < contour.Segments.Count ; i++)
             {
                 int j = i == contour.Segments.Count - 1 ? 0 : i + 1;
@@ -55,25 +56,13 @@ namespace BypassContour
                 Point secondVector = new Point(contour.Segments[j].Pt2.X - contour.Segments[j].Pt1.X, contour.Segments[j].Pt2.Y - contour.Segments[j].Pt1.Y);
                 double lenFirstVec = Math.Sqrt(Math.Pow(firstVector.X, 2) + Math.Pow(firstVector.Y, 2));
                 double lenSecondVec = Math.Sqrt(Math.Pow(secondVector.X, 2) + Math.Pow(secondVector.Y, 2));
-                double scalarMulty = firstVector.X*secondVector.X+firstVector.Y*secondVector.Y;
+                double scalarMulty = firstVector.X * secondVector.X + firstVector.Y * secondVector.Y;
 
-                double cosAngle = scalarMulty / (lenFirstVec*lenSecondVec);
-                Console.WriteLine(Math.Acos(cosAngle));
+                double cosAngle = scalarMulty / ( lenFirstVec * lenSecondVec );
+                Console.WriteLine(Math.Acos(cosAngle) / Math.PI * 180);
 
-                /*  M1 := Sqrt(Sqr(P2.X - P1.X) + Sqr(P2.Y - P1.Y));
-  M2 := Sqrt(Sqr(P3.X - P1.X) + Sqr(P3.Y - P1.Y));
-  SM := (P2.X - P1.X) * (P3.X - P1.X) + (P2.Y - P1.Y) * (P3.Y - P1.Y);
-  CosUgol := SM / (M1 * M2);
-  GetUgol := Round(ArcCos(CosUgol) * 180);*/
+                /*Он не показывает тупой угол, тут нужно искать синус*/
             }
-
-        }
-
-
-
-        private static void AngleSolution(Contour contour, bool dir)
-        {
-            
         }
 
 
@@ -86,10 +75,37 @@ namespace BypassContour
             {
                 int j = i == contour.Segments.Count - 1 ? 0 : i + 1;
 
-                if (VectorMultiply(contour.Segments[i], contour.Segments[j]) > 0)
-                {
+                bool dirSegment = VectorMultiply(contour.Segments[i], contour.Segments[j]) > 0 ? true : false;
 
+
+                
+                if (dirSegment != contour.Segments[i].Direction)
+                {
+                    contour.Segments[i].SwapDeriction();
+                    (contour.Segments[i].Pt1, contour.Segments[i].Pt2) = (contour.Segments[i].Pt2, contour.Segments[i].Pt1);
                 }
+
+                //if (dirSegment != contour.Segments[j].Direction)
+                //{
+                //    contour.Segments[j].SwapDeriction();
+                //    (contour.Segments[j].Pt1, contour.Segments[j].Pt2) = (contour.Segments[j].Pt2, contour.Segments[j].Pt1);
+                //}
+
+
+                if (contour.Segments[i].Direction != dir)
+                {
+                    contour.Segments[i].SwapDeriction();
+                    (contour.Segments[i].Pt1, contour.Segments[i].Pt2) = (contour.Segments[i].Pt2, contour.Segments[i].Pt1);
+                }
+
+                //if (contour.Segments[j].Direction != dir)
+                //{
+                //    contour.Segments[j].SwapDeriction();
+                //    (contour.Segments[j].Pt1, contour.Segments[j].Pt2) = (contour.Segments[j].Pt2, contour.Segments[j].Pt1);
+                //}
+                //зачем нам вначале искать напрадление по углам, а потом менять это направление подстать нужному направлению всего конутра по индексу дерева?
+                // почему нельзя заменить сразу все направления под направление по индексу дерева?
+
             }
         }
 

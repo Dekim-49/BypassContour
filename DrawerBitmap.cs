@@ -5,6 +5,7 @@ namespace BypassTheCircuit
     public class DrawerBitmap : IDrawer
     {
         string path = @"C:\Users\ASUS\Desktop\dir";
+        string name;
         Graphics g;
         Bitmap bitmap;
         Pen pen_Clockwise = new Pen(Color.Red, 5);
@@ -14,11 +15,12 @@ namespace BypassTheCircuit
 
         int arrowWidth = 7;
 
-        public DrawerBitmap(Node tree)
+        public DrawerBitmap(Node tree, string name)
         {
             bitmap = new Bitmap(GetSizeFrame(tree).Item1 * size, GetSizeFrame(tree).Item2 * size);
             g = Graphics.FromImage(bitmap);
             g.Clear(Color.White);
+            this.name = name;
         }
         public void Draw(Node tree)
         {   
@@ -38,7 +40,7 @@ namespace BypassTheCircuit
                 else DrawSegment(s, pen_Clockwise);
 
             }
-            bitmap.Save(path + ".png");
+            bitmap.Save(path + name + ".png");
         }
         private (int, int) GetSizeFrame(Node tree)
         {
@@ -62,7 +64,7 @@ namespace BypassTheCircuit
             }
             return (maxX - minX, maxY - minY);
         }
-        private void CalculatePositionOfArrow(Segment segment)
+        private void CalculatePositionOfArrow(Segment segment, Pen pen)
         {
             (int, int) pointArrow1, pointArrow2, pointArrowCenter;
             if (segment.Pt1.X == segment.Pt2.X)
@@ -70,13 +72,13 @@ namespace BypassTheCircuit
                 pointArrow1 = (segment.Pt1.X * size - arrowWidth, (int)( segment.Pt1.Y * size + segment.Pt2.Y * size ) / 2);
                 pointArrow2 = (segment.Pt1.X * size + arrowWidth, (int)( segment.Pt1.Y * size + segment.Pt2.Y * size ) / 2);
                 
-                if (segment.Direction)
+                if (segment.Pt1.Y > segment.Pt2.Y)
                 {
-                    pointArrowCenter = (segment.Pt1.X * size, (int)( segment.Pt1.Y * size + segment.Pt2.Y * size ) / 2 + 2 * arrowWidth);
+                    pointArrowCenter = (segment.Pt1.X * size, (int)( segment.Pt1.Y * size + segment.Pt2.Y * size ) / 2 - 2 * arrowWidth);
                 }
                 else
                 {
-                    pointArrowCenter = (segment.Pt1.X * size, (int)( segment.Pt1.Y * size + segment.Pt2.Y * size ) / 2 - 2 * arrowWidth);
+                    pointArrowCenter = (segment.Pt1.X * size, (int)( segment.Pt1.Y * size + segment.Pt2.Y * size ) / 2 + 2 * arrowWidth);
                 }
             }
             else
@@ -84,16 +86,16 @@ namespace BypassTheCircuit
                 pointArrow1 = ((int)(segment.Pt1.X * size + segment.Pt2.X * size ) / 2, segment.Pt1.Y * size + arrowWidth);
                 pointArrow2 = ((int)( segment.Pt1.X * size + segment.Pt2.X * size ) / 2, segment.Pt1.Y * size - arrowWidth);
 
-                if (segment.Direction)
-                {
-                    pointArrowCenter = ((int)( segment.Pt1.X * size + segment.Pt2.X * size ) / 2 - 2 * arrowWidth, segment.Pt1.Y * size);
-                }
-                else
+                if (segment.Pt1.X < segment.Pt2.X)
                 {
                     pointArrowCenter = ((int)( segment.Pt1.X * size + segment.Pt2.X * size ) / 2 + 2 * arrowWidth, segment.Pt1.Y * size);
                 }
+                else
+                {
+                    pointArrowCenter = ((int)( segment.Pt1.X * size + segment.Pt2.X * size ) / 2 - 2 * arrowWidth, segment.Pt1.Y * size);
+                }
             }
-            DrawSegment(segment, pointArrow1, pointArrow2, pointArrowCenter, new Pen(Color.Red, 3));
+            DrawSegment(segment, pointArrow1, pointArrow2, pointArrowCenter, pen);
         }
         private void DrawSegment(Segment s, (int, int) pointArrow1, (int, int) pointArrow2, (int, int) pointArrowCenter, Pen pen)
         {
@@ -105,6 +107,7 @@ namespace BypassTheCircuit
         private void DrawSegment(Segment s, Pen pen)
         {
             g.DrawLine(pen, s.Pt1.X * size, s.Pt1.Y * size, s.Pt2.X * size, s.Pt2.Y * size);
+            CalculatePositionOfArrow(s, pen);
 
         }
     }
