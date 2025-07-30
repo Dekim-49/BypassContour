@@ -78,11 +78,29 @@ namespace BypassContour
                 bool dirSegment = VectorMultiply(contour.Segments[i], contour.Segments[j]) > 0 ? true : false;
 
 
-                
-                if (dirSegment != contour.Segments[i].Direction)
+
+                //if (dirSegment != contour.Segments[i].Direction)
+                //{
+                //    contour.Segments[i].SwapDeriction();
+                //    (contour.Segments[i].Pt1, contour.Segments[i].Pt2) = (contour.Segments[i].Pt2, contour.Segments[i].Pt1);
+                //}
+                //else if (dirSegment != dir && contour.Segments[i].Direction != dir)
+                //{
+                //    contour.Segments[i].SwapDeriction();
+                //}
+
+                if (dirSegment != dir)
+                {
+                    if (contour.Segments[i].Direction != dir)
+                    {
+                        contour.Segments[i].SwapDeriction();
+                        (contour.Segments[i].Pt1, contour.Segments[i].Pt2) = (contour.Segments[i].Pt2, contour.Segments[i].Pt1);
+                    }
+                }
+                else if (dirSegment != contour.Segments[i].Direction)
                 {
                     contour.Segments[i].SwapDeriction();
-                    (contour.Segments[i].Pt1, contour.Segments[i].Pt2) = (contour.Segments[i].Pt2, contour.Segments[i].Pt1);
+                    //(contour.Segments[i].Pt1, contour.Segments[i].Pt2) = (contour.Segments[i].Pt2, contour.Segments[i].Pt1);
                 }
 
                 //if (dirSegment != contour.Segments[j].Direction)
@@ -92,11 +110,7 @@ namespace BypassContour
                 //}
 
 
-                if (contour.Segments[i].Direction != dir)
-                {
-                    contour.Segments[i].SwapDeriction();
-                    (contour.Segments[i].Pt1, contour.Segments[i].Pt2) = (contour.Segments[i].Pt2, contour.Segments[i].Pt1);
-                }
+                
 
                 //if (contour.Segments[j].Direction != dir)
                 //{

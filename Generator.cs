@@ -158,9 +158,9 @@ namespace BypassContour
         public static Node Example2()
         {
             Point pFrame11 = new Point(0, 0);
-            Point pFrame12 = new Point(10, 0);
-            Point pFrame21 = new Point(0, 10);
-            Point pFrame22 = new Point(10, 10);
+            Point pFrame12 = new Point(5, 0);
+            Point pFrame21 = new Point(0, 5);
+            Point pFrame22 = new Point(5, 5);
 
             Point pSquare11 = new Point(1, 1);
             Point pSquare12 = new Point(4, 1);
@@ -184,7 +184,7 @@ namespace BypassContour
             Segment sSquare21_11 = new Segment(pSquare21, pSquare11, false);
 
             Segment sSquare2_11_12 = new Segment(pSquare2_11, pSquare2_12, false);
-            Segment sSquare2_12_22 = new Segment(pSquare2_12, pSquare2_22, false);
+            Segment sSquare2_12_22 = new Segment(pSquare2_12, pSquare2_22, true);
             Segment sSquare2_22_21 = new Segment(pSquare2_22, pSquare2_21, false);
             Segment sSquare2_21_11 = new Segment(pSquare2_21, pSquare2_11, false);
 
