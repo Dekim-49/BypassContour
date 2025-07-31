@@ -46,7 +46,12 @@ namespace BypassContour
         }
 
 
-
+        /// <summary>
+        /// Решение через скалярное произведение 
+        /// Не работает из-за того что косинус не показывает тупые углы.
+        /// </summary>
+        /// <param name="contour"></param>
+        /// <param name="dir"></param>
         private static void AngleSolution(Contour contour, bool dir)
         {
             for (int i = 0 ; i < contour.Segments.Count ; i++)
@@ -68,7 +73,13 @@ namespace BypassContour
 
 
 
-
+        /// <summary>
+        /// Решение через векторное призведение направленных векторов.
+        /// Считается что первая координата отрезка - старт, вторая - конец.
+        /// Работает не до конца, надо разобраться с отрезками разных направленностей.
+        /// </summary>
+        /// <param name="contour"></param>
+        /// <param name="dir"></param>
         private static void VectorMultySolution(Contour contour, bool dir)
         {
             for (int i = 0 ; i < contour.Segments.Count ; i++)
@@ -122,7 +133,12 @@ namespace BypassContour
             }
         }
 
-
+        /// <summary>
+        /// Попытка просичтать все результаты при всех напрвлениях и соединениях векторов.
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
         private static int FindCommonPoint(Segment first, Segment second)
         {
             Point firstPt1 = first.Pt1;
@@ -138,7 +154,11 @@ namespace BypassContour
             {
                 return VectorMultiply(first, second);
             }
+
+            return 0;
         }
+
+
         /// <summary>
         /// Вычисляет векторное произведение. Работает в системе координат компьютера (Ох - слева направо, Оу - сверху вниз)
         /// </summary>
