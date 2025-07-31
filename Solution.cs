@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Xml.Serialization;
 
+/*вначале обход всего конутра с выравниванием кто куда идёт
+ потом сравнение одного сегмента с диром дерева. если равно - ок, если нет - выровнять весь контур*/
+
 namespace BypassContour
 {
     public static class Solution
