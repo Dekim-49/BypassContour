@@ -27,7 +27,7 @@
             SyncContourDirection(node.GetContour());
             if (node.GetContour().Segments[0].Direction != dir)
             {
-                SetRightDirection(node.GetContour(), dir);
+                SetRightDirection(node.GetContour());
             }
         }
 
@@ -37,7 +37,7 @@
             return true;
         }
 
-        private static void SetRightDirection(Contour contour, bool dir)
+        private static void SetRightDirection(Contour contour)
         {
             foreach (Segment s in contour.Segments)
             {
