@@ -20,7 +20,7 @@ namespace BypassContour
             //IDrawer drawerPosle = new DrawerBitmap(tree, "di_Posle");
             Solution.GetSolution(tree);
             //drawerPosle.Draw(tree);   
-            //drawerConsol.Draw(tree);
+            drawerConsol.Draw(tree);
         }
     }
 }
