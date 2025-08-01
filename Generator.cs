@@ -4,60 +4,6 @@ namespace BypassContour
 {
     public class Generator
     {
-        //(int, int) minSizeContour;
-        //int countLayers;
-        //int maxCountContours;
-
-        //Node tree;
-
-        //public Generator((int, int) minSizeContour, int countLayers, int countContours)
-        //{
-        //    this.minSizeContour = minSizeContour;
-        //    this.countLayers = countLayers;
-        //    this.maxCountContours = countContours;
-        //}
-
-        //// Рекурсивный метод, рисующий вложенные прямоугольники
-        //private void DrawRandomRectangles(Graphics g, ref Rectangle rect, int depth)
-        //{
-        //    if (depth <= 0 || rect.Width < 10 || rect.Height < 10)
-        //        return;
-
-        //    Brush brush = new SolidBrush(Color.FromArgb(random.Next(256), random.Next(256), random.Next(256)));
-        //    Pen pen = new Pen(brush.Color, 2);
-        //    g.DrawRectangle(pen, rect);
-
-        //    // Уменьшаем размеры текущего прямоугольника
-        //    int offsetX = random.Next(rect.Width / 4, rect.Width / 2);
-        //    int offsetY = random.Next(rect.Height / 4, rect.Height / 2);
-        //    Rectangle childRect = new Rectangle(
-        //        rect.X + offsetX,
-        //        rect.Y + offsetY,
-        //        Math.Max(10, rect.Width - 2 * offsetX),
-        //        Math.Max(10, rect.Height - 2 * offsetY));
-
-        //    // Рекуративно повторяем процесс для внутреннего прямоугольника
-        //    DrawRandomRectangles(g, ref childRect, depth - 1);
-        //}
-
-        //public void CreateTree(int numberLayer)
-        //{
-        //    if (numberLayer == 0)
-        //    {
-        //        return;
-        //    }
-        //    Random r = new Random();
-        //    List<Node> childs = new List<Node>();
-        //    int countChildren = r.Next(maxCountContours);
-        //    for (int i = 0 ; i < countChildren; i++)
-        //    {
-
-        //    }    
-        //    //foreach (Segment s in tree.GetContour().Segments)
-        //    //{
-        //    //    Console.WriteLine($"({s.Pt1.X},{s.Pt1.Y}) - ({s.Pt2.X},{s.Pt2.Y}) : {s.Direction}");
-        //    //}
-        //}
         public static Node Example()
         {
             Point pFrame11 = new Point(0, 0);

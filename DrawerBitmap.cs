@@ -4,16 +4,16 @@ namespace BypassTheCircuit
 {
     public class DrawerBitmap : IDrawer
     {
-        string path = @"C:\Users\ASUS\Desktop\dir";
-        string name;
-        Graphics g;
-        Bitmap bitmap;
-        Pen pen_Clockwise = new Pen(Color.Red, 5);
-        Pen pen_Counterclockwise = new Pen(Color.Blue, 5);  
+        private readonly string path = @"C:\Users\ASUS\Desktop\dir";
+        private readonly string name;
+        private Graphics g;
+        private readonly Bitmap bitmap;
+        private readonly Pen pen_Clockwise = new Pen(Color.Red, 5);
+        private readonly Pen pen_Counterclockwise = new Pen(Color.Blue, 5);  
 
-        int size = 100;
+        private readonly int size = 100;
 
-        int arrowWidth = 7;
+        private readonly int arrowWidth = 7;
 
         public DrawerBitmap(Node tree, string name)
         {
@@ -102,13 +102,11 @@ namespace BypassTheCircuit
             g.DrawLine(pen, s.Pt1.X * size, s.Pt1.Y * size, s.Pt2.X * size, s.Pt2.Y * size);
             g.DrawLine(pen, pointArrow1.Item1, pointArrow1.Item2, pointArrowCenter.Item1, pointArrowCenter.Item2);
             g.DrawLine(pen, pointArrow2.Item1, pointArrow2.Item2, pointArrowCenter.Item1, pointArrowCenter.Item2);
-
         }
         private void DrawSegment(Segment s, Pen pen)
         {
             g.DrawLine(pen, s.Pt1.X * size, s.Pt1.Y * size, s.Pt2.X * size, s.Pt2.Y * size);
             CalculatePositionOfArrow(s, pen);
-
         }
     }
 
