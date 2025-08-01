@@ -48,6 +48,11 @@
             direction = !direction;
         }
 
+        public void SwapPoints()
+        {
+            (Pt1, Pt2) = (Pt2, Pt1);
+        }
+
     }
 
 
